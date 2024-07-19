@@ -1,0 +1,154 @@
+MongoDB Notes
+What is MongoDB?
+MongoDB is a NoSQL, document-oriented database designed for high performance, high availability, and easy scalability. It stores data in flexible, JSON-like documents, meaning fields can vary from document to document and data structure can be changed over time.
+
+Key Concepts:
+
+Database: A container for collections, similar to a schema in relational databases.
+
+Collection: A grouping of MongoDB documents, akin to a table in relational databases. Collections exist within a single database.
+
+Document: The basic unit of data in MongoDB, similar to a row in a table. Documents are stored in BSON (Binary JSON) format, allowing embedded documents and arrays.
+
+Field: A key-value pair in a document, similar to a column in a table.
+
+Features:
+
+Schema-less: Collections do not enforce document structure, allowing for flexible and dynamic schemas.
+
+Indexing: Supports various types of indexing, including single field, compound, multi-key, geospatial, and text indexes to improve query performance.
+
+Replication: Provides high availability with replica sets, which consist of multiple copies of data across different nodes.
+
+Sharding: Enables horizontal scaling by distributing data across multiple servers using a shard key.
+
+Aggregation: Offers powerful aggregation framework for data processing and transformation.
+
+Use Cases:
+
+Suitable for applications with diverse and evolving data structures.
+Ideal for handling large volumes of unstructured or semi-structured data.
+Commonly used in real-time analytics, content management, and IoT applications.
+MongoDB is widely appreciated for its flexibility, scalability, and performance, making it a popular choice for modern web applications and big data solutions.
+
+
+Sure, here are examples of MongoDB CRUD (Create, Read, Update, Delete) operations using Mongoose in a Node.js application:
+
+### Mongoose Model Setup
+
+First, ensure you have a Mongoose model set up. Let's assume we have a `User` model:
+
+```javascript
+// models/User.js
+const mongoose = require('mongoose');
+
+const userSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    age: Number
+});
+
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
+```
+
+### Create Operation
+
+Create a new user document.
+
+```javascript
+app.post("/users", async (req, res) => {
+    try {
+        const newUser = new User(req.body);
+        const savedUser = await newUser.save();
+        res.status(201).json(savedUser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error creating user");
+    }
+});
+```
+
+### Read Operations
+
+Read all users.
+
+```javascript
+app.get("/users", async (req, res) => {
+    try {
+        const users = await User.find({});
+        res.json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error retrieving users");
+    }
+});
+```
+
+Read a user by ID.
+
+```javascript
+app.get("/users/:id", async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error retrieving user");
+    }
+});
+```
+
+### Update Operation
+
+Update a user by ID.
+
+```javascript
+app.put("/users/:id", async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        if (!updatedUser) {
+            return res.status(404).send("User not found");
+        }
+        res.json(updatedUser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error updating user");
+    }
+});
+```
+
+### Delete Operation
+
+Delete a user by ID.
+
+```javascript
+app.delete("/users/:id", async (req, res) => {
+    try {
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
+        if (!deletedUser) {
+            return res.status(404).send("User not found");
+        }
+        res.json(deletedUser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error deleting user");
+    }
+});
+```
+
+### Summary
+
+Here are the CRUD operations for MongoDB using Mongoose:
+
+1. **Create**: `app.post("/users", ...)` - Creates a new user.
+2. **Read**: 
+   - `app.get("/users", ...)` - Retrieves all users.
+   - `app.get("/users/:id", ...)` - Retrieves a user by ID.
+3. **Update**: `app.put("/users/:id", ...)` - Updates a user by ID.
+4. **Delete**: `app.delete("/users/:id", ...)` - Deletes a user by ID.
+
