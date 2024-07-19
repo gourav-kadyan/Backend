@@ -1,0 +1,33 @@
+how to make server 
+
+    -- need modules 
+        http
+        -- http.createServer -- need to invoke in which need req handler
+        -- where are two para one is req and res as name suggest one for need something like route
+            and another for response as per the req
+
+    
+    -- how to make module
+        what are module 
+            module are like a function or premade functionalities which already or need to be 
+            downloaded by npm
+
+        to create them 
+            like here name file 'cmod.js' where i create basic module name 'name  = "gourav"' and
+            then export after in any file i import it. it can use like module or same like
+
+    
+    -- want the latest way to import the module 
+            then change type : in package.json to module then u can use like in react u import
+
+            import http from "http" //that way you can get
+
+
+    -- MOdule : fs 
+
+        fs.readFile -- asynchronous, read the file
+        fs.writeFile -- same just write in the file
+        fs.readFileSync == synchoronouly, read the file
+
+
+    --module : path --> use to handle paths or getting info from it like parse

@@ -1,0 +1,39 @@
+EJS
+
+Why we need it ? 
+
+Because if we need to update some data in html file again and again like name
+and other stuff then it give a headache but with the help of ejs as a extension 
+name you can use it like javascript variable with this 
+
+like you have <p> Hii, <%= name%> </p> here name is a javasript variable
+
+but there is a some problem like if write wrond var name as we assign a value in
+javascript then it give error but we can withstand it with help of locals 
+it is a object of object. so here if we locals.name then it give the data 
+which store in name and if i give wrong variable name it just put empty or nan 
+in it so it did not give error just there is only empty is here in this example
+here only have "hii, " thats it
+
+Views --> a predefine directory so i did need to give full address if something 
+is in views directory just need the name of the file
+
+
+What if we need to send static file then what do we doo?
+
+then make folder and make them static with the help of express.static() 
+but we need a path for this then we use path module mainly path.join() and
+path.resolve() to join the absolute the path and the folder with this we 
+can do but then how to use it still giving error then all we have to do 
+servername.use use is a function where we write all above we do for making folder 
+static to get the file but there is one problem if you make that specific folder then you can get all file and open it in browser if you know the name of the 
+file so be carefull
+
+
+So lets make a contact form and make api to learn how things work
+
+    in this we make form and make method post and action contact so after that we
+    make our temporary database which is simple array and add middleware
+    urlencode make them true so the we can get the data from it after that
+    we make some endpoints like contact , sucess etc after words we make a 
+    single api function which is users where we can see the data easily
